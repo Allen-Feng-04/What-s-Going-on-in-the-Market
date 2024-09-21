@@ -39,7 +39,7 @@ Acquire your own API key from https://twelvedata.com
 
 3. **Run the Script**
 
-   Add your own API key to the your_API_key variable (should be in the last few lines).
+   Add your own API key to the your_API_key variable (should be in the last few lines of main.py).
 
    ```bash
    python main.py
