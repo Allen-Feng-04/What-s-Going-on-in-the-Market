@@ -96,7 +96,7 @@ def get_and_write_all_stock_movements(date,user_key):
         link_cell.style = 'Hyperlink'
         link_cell.font = Font(color='0000FF', underline='single')
 
-    filename = 'NewsLinks.xlsx'
+    filename = 'NewsLinks.csv'
     workbook.save(filename)
     print(f"File saved as {filename}")
 
