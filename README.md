@@ -39,8 +39,7 @@ Acquire your own API key from https://twelvedata.com
 
 3. **Run the Script**
 
-   Add your own API key to the your_API_key variable, and change the date argument in the get_and_write_all_stock_movements function to yesterday's date or any past date
-   (Both the function and variable are in the last two lines of main.py)
+   Add your own API key to the your_API_key variable (should be in the last few lines).
 
    ```bash
    python main.py
