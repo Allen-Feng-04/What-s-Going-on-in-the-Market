@@ -6,6 +6,7 @@ import time
 import openpyxl
 from openpyxl import Workbook
 from openpyxl.styles import Font
+import pandas as pd
 from pandas import concat
 
 #from press release website, scrap stock press releases for the day
@@ -13,7 +14,7 @@ def acquire_news_tickers(date):
     data = []
     date.replace("-","%2f")
     
-    for num in range(1,2): #adjust the range to adjust the number of news pages you want to scrap
+    for num in range(1,2): #adjust the range to adjust the number of news pages you want to scrap, shouldn't be more than the number of pages the website stockhouse.com actually has
         url = f'https://stockhouse.com/news/us-press-releases?sort=DESC&sdate={date}&page={num}'
     
         try:
@@ -48,7 +49,7 @@ def acquire_news_tickers(date):
                 print("Failed to connect to servers")
     
         except:
-            print("Failed to find url")
+            print("Failed to find url or the website does not have that many pages (reduce the range in this for-loop if that's the case)")
         
     return data
 
@@ -75,39 +76,39 @@ def get_and_write_all_stock_movements(date,user_key):
     news_data = acquire_news_tickers(date)
     for news in news_data:
         percentage_change = acquire_stock_movement(news[1],date,user_key)
-        news.insert(2,percentage_change)
-        print(news[1],percentage_change)
+        news.insert(2,f"{percentage_change:2%}")
+        print(news[1],news[2])
         time.sleep(8)
 
     #write everything into a csv
     workbook = Workbook()
     sheet = workbook.active
     sheet['A1'] = 'Company Ticker'
-    sheet['B1'] = 'Stock Percentage Change'
-    sheet['C1'] = 'News Link'
+    sheet['B1'] = 'Date'
+    sheet['C1'] = 'Stock Percentage Change'
+    sheet['D1'] = 'News Link'
 
     for index, (title, ticker, percentage, url) in enumerate(news_data, start=2):
         sheet.cell(row=index, column=1).value = ticker
-        sheet.cell(row=index,column=2).value = percentage
-        #writing the link with a news title
-        link_cell = sheet.cell(row=index, column=3)
+        sheet.cell(row=index, column=2).value = date
+        sheet.cell(row=index,column=3).value = percentage
+        link_cell = sheet.cell(row=index, column=4)
         link_cell.hyperlink = "https://" + url
         link_cell.value = title
         link_cell.style = 'Hyperlink'
         link_cell.font = Font(color='0000FF', underline='single')
 
-    filename = 'NewsLinks.csv'
+    filename = 'NewsLinks.xlsx'
     workbook.save(filename)
+    df = pd.read_excel(filename)
+    csv_file = "Newslinks.csv"
+    df.to_csv(csv_file,index=False)
     print(f"File saved as {filename}")
 
 #feature
 your_api_key = ""
-get_and_write_all_stock_movements("09-19-2024",your_api_key) #type in today's date or past date here in the provided format
-
-
-
-
-
+user_date = input("Enter a date (MM-DD-YYYY) to check all stock performance and news on that day (input yesterday or any past date)")
+get_and_write_all_stock_movements(user_date,your_api_key)
 
 
 
