@@ -101,7 +101,7 @@ def get_and_write_all_stock_movements(date,user_key):
     print(f"File saved as {filename}")
 
 #feature
-your_api_key = ""
+your_api_key = "e7e9687257f34f96adca1af56e747483"
 get_and_write_all_stock_movements("09-19-2024",your_api_key) #type in today's date or past date here in the provided format
 
 
