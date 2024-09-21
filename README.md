@@ -5,7 +5,7 @@ The program will generate a dataset that includes links to all the current day's
 
 ##Sources used
 
-- **Stockhouse.com**: A static website that posts recent stock news and board announcements. As scraping on most of its pages is allowed, our program will scrap stock press releases from this website.
+- **Stockhouse.com**: A static website that posts recent stock news and board announcements. As scraping is allowed on most of its pages, our program will scrap stock press releases from this website.
 - **https://twelvedata.com**: This API will then provide the relevant stock movement information for the day.
 
 
