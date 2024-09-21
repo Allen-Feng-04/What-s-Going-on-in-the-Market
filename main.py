@@ -89,6 +89,7 @@ def get_and_write_all_stock_movements(date,user_key):
     for index, (title, ticker, percentage, url) in enumerate(news_data, start=2):
         sheet.cell(row=index, column=1).value = ticker
         sheet.cell(row=index,column=2).value = percentage
+        #writing the link with a news title
         link_cell = sheet.cell(row=index, column=3)
         link_cell.hyperlink = "https://" + url
         link_cell.value = title
@@ -101,7 +102,12 @@ def get_and_write_all_stock_movements(date,user_key):
 
 #feature
 your_api_key = ""
-get_and_write_all_stock_movements("09-19-2024",your_api_key)
+get_and_write_all_stock_movements("09-19-2024",your_api_key) #type in today's date or past date here in the provided format
+
+
+
+
+
 
 
 
