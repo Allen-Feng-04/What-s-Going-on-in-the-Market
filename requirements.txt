@@ -1,6 +1,4 @@
 requests
 beautifulsoup4
 openpyxl
-re
-time
 pandas
